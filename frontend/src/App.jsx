@@ -12,12 +12,12 @@ import QuizTakePage from './pages/quizzes/QuizTakePage'
 import QuizResultPage from './pages/quizzes/QuizResultPage'
 import ProfilePage from './pages/profile/ProfilePage'
 import ProtectedRoute from './components/auth/ProtectedRoute'
+import { useAuth } from './context/AuthContext';
 
 const App = () => {
-  const isAuthenticated = false
-  const isLoading = false
+  const {isAuthenticated,loading} = useAuth();
 
-  if(isLoading){
+  if(loading){
     return(
         <div className='flex items-center justify-center h-screen'><p>Loading...</p></div>
     );
