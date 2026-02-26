@@ -16,13 +16,12 @@ const Spinner = () => {
                  r='10'
                  stroke='currentColor'
                  strokeWidth='3'
-                ></circle>
+                />
                 <path 
                 className='opacity-75'
                 fill='currentColor'
-                d='M4 12a8 8 0  018-8V0CS.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.93813-2.647z'
-                >
-                </path>
+                d='M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z'
+                />
               </svg>
         </div>
     )

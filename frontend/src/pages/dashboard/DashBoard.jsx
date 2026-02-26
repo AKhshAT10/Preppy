@@ -72,7 +72,6 @@ const DashBoard = () => {
 
       <div className='relative max-w-7xl mx-auto'>
 
-        {/* Header */}
         <div className='mb-6'>
           <h1 className='text-2xl font-medium text-slate-900 tracking-light mb-2'>
             Dashboard
@@ -82,7 +81,6 @@ const DashBoard = () => {
           </p>
         </div>
 
-        {/* Stats Grid */}
         <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-5'>
           {stats.map((stat, index) => (
             <div
@@ -93,7 +91,7 @@ const DashBoard = () => {
                 <span className='text-xs font-semibold text-slate-500 uppercase tracking-wide'>
                   {stat.label}
                 </span>
-                <div className={`w-11 h-11 rounded-xl bg-linear-to-br ${stat.gradient} shadow-lg ${stat.shadowColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${stat.gradient} shadow-lg ${stat.shadowColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                   <stat.icon className='w-5 h-5 text-white' strokeWidth={2} />
                 </div>
               </div>
@@ -104,10 +102,9 @@ const DashBoard = () => {
           ))}
         </div>
 
-        {/* Recent Activity Section */}
         <div className='bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-xl shadow-slate-200/50 p-8'>
           <div className='flex items-center gap-3 mb-6'>
-            <div className='w-10 h-10 rounded-xl bg-linear-to-br from-slate-100 to-slate-200 flex items-center justify-center'>
+            <div className='w-10 h-10 rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center'>
               <Clock className='w-5 h-5 text-slate-600' strokeWidth={2} />
             </div>
             <h3 className='text-xl font-medium text-slate-900 tracking-tight'>
@@ -145,10 +142,11 @@ const DashBoard = () => {
                     <div className='flex-1 min-w-0'>
                       <div className='flex items-center gap-2 mb-1'>
                         <div
-                          className={`w-2 h-2 rounded-full ${activity.type === 'document'
-                              ? 'bg-linear-to-r from-blue-400 to-cyan-500'
-                              : 'bg-linear-to-r from-emerald-400 to-teal-500'
-                            }`}
+                          className={`w-2 h-2 rounded-full ${
+                            activity.type === 'document'
+                              ? 'bg-gradient-to-r from-blue-400 to-cyan-500'
+                              : 'bg-gradient-to-r from-emerald-400 to-teal-500'
+                          }`}
                         />
                         <p className='text-sm font-medium text-slate-900 truncate'>
                           {activity.type === 'document' ? 'Accessed Document ' : 'Attempted Quiz '}
