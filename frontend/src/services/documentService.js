@@ -11,16 +11,21 @@ const getDocuments = async () => {
 };
 
 const uploadDocuments = async (formData) => {
-    try{
-       const response = await axiosInstance.post(API_PATHS.DOCUMENTS.UPLOAD,formData,{
-        headers:{
-            'Content-Type': 'multipart/form-data',
+  try {
+    const response = await axiosInstance.post(
+      API_PATHS.DOCUMENTS.UPLOAD,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-       });
-       return response.data;
-    }catch(error){
-       throw error.response?.data || {message: 'failed to upload document'};
-    }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("UPLOAD SERVICE ERROR:", error);
+    throw error;
+  }
 };
 
 const deleteDocument = async (id) => {
@@ -28,8 +33,9 @@ const deleteDocument = async (id) => {
        const response = await axiosInstance.delete(API_PATHS.DOCUMENTS.DELETE_DOCUMENT(id));
        return response.data;
     }catch(error){
-       throw error.response?.data || {message: 'failed to delete document'};
-    }
+       console.error("UPLOAD SERVICE ERROR:", error);
+       throw error;
+}
 };
 
 const getDocumentById = async (id) => {

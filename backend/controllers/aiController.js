@@ -200,9 +200,11 @@ export const chat = async (req, res, next) => {
             });
         }
 
+        // ✅ Get relevant chunks
         const relevantChunks = findRelevantChunks(document.chunks, question, 3);
         const chunkIndices = relevantChunks.map(c => c.chunkIndex);
 
+        // ✅ Get or create chat history
         let chatHistory = await ChatHistory.findOne({
             userId: req.user._id,
             documentId: document._id
@@ -216,10 +218,13 @@ export const chat = async (req, res, next) => {
             });
         }
 
-        const context = relevantChunks.map(c => c.content).join('\n\n');
+        // ✅ FIX: Pass array directly (NOT string)
+        const answer = await geminiService.chatWithContext(
+            question,
+            relevantChunks
+        );
 
-        const answer = await geminiService.chatWithContext(question, context);
-
+        // ✅ Save messages
         chatHistory.messages.push(
             {
                 role: 'user',
@@ -252,7 +257,6 @@ export const chat = async (req, res, next) => {
         next(error);
     }
 };
-
 
 // =============================
 // Explain Concept

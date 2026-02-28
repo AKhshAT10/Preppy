@@ -137,32 +137,32 @@ export const generateQuiz = async (text,numQuestions = 5) => {
     }
 };
 
-/**
- * generate document summary
- * @param {string} text - document text
- * @returns {Promise<string>}
- */
-
 export const generateSummary = async (text) => {
-    const prompt = `provide a concise summary of the following text, highlighting the key concepts,main ideas and important points , keep the summary clear and structured.
+    const prompt = `Provide a concise summary of the following text, highlighting the key concepts, main ideas and important points. Keep the summary clear and structured.
 
-    Text:
-    ${text.substring(0,20000)}`;
+Text:
+${text.substring(0, 20000)}`;
 
-    try{
-        const response = await ai.models.generateContent({
+    try {
+        const result = await ai.models.generateContent({
             model: "gemini-2.5-flash-lite",
-            content: prompt,
+            contents: [
+                {
+                    role: "user",
+                    parts: [{ text: prompt }]
+                }
+            ]
         });
 
-        const generatedText = response.text;
-        return generatedText;
-    }catch(error){
-        console.error('Gemini API Error:',error);
-        throw new Error('Failed to generate summary');
+        console.log("Gemini Full Response:", result); // temporary debug
+
+        return result.text;   // ✅ THIS is correct
+
+    } catch (error) {
+        console.error("Gemini API Error:", error);
+        throw new Error("Failed to generate summary");
     }
 };
-
 /**
  * chat with document context
  * @param {string} question - user question

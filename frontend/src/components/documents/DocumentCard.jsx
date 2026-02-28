@@ -27,7 +27,7 @@ const DocumentCard = ({document,onDelete}) => {
     };
 
     const handleDelete = (e) => {
-        e.stopPropogation();
+        e.stopPropagation();
         onDelete(document);
     };
 
@@ -83,7 +83,7 @@ const DocumentCard = ({document,onDelete}) => {
            <div className='mt-5 pt-4 border-t border-slate-100'>
              <div className='flex items-center gap-1.5 text-xs text-slate-500'>
                  <Clock className='w-3.5 h-3.5' strokeWidth={2}/>
-                 <span>Uploaded{moment(document.createdAt).fromNow()}</span>
+                 <span>Uploaded {moment(document.createdAt).fromNow()}</span>
              </div>
            </div>
 
