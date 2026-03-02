@@ -1,19 +1,25 @@
 import express from 'express';
-
-import{
-    getQuizzes,getQuizById,submitQuiz,getQuizResults,deleteQuiz
-}from '../controllers/quizController.js';
+import {
+    getQuizzes,
+    getQuizById,
+    submitQuiz,
+    getQuizResults,
+    deleteQuiz
+} from '../controllers/quizController.js';
 import protect from '../middleware/auth.js';
 
 const router = express.Router();
 
-//all routes are protected
+// all routes protected
 router.use(protect);
 
-router.get('/:documentId',getQuizzes);
-router.get('/quiz/:id',getQuizById);
-router.get('/:id/submit',submitQuiz);
-router.get('/:id/results',getQuizResults);
-router.delete('/:id',deleteQuiz);
+// IMPORTANT: specific routes first
+router.get('/quiz/:id', getQuizById);
+router.post('/:id/submit', submitQuiz);
+router.get('/:id/results', getQuizResults);
+router.delete('/:id', deleteQuiz);
+
+// generic route LAST
+router.get('/:documentId', getQuizzes);
 
 export default router;

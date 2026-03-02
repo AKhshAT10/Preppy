@@ -35,12 +35,12 @@ export const API_PATHS = {
     },
 
     QUIZZES: {
-        GET_QUIZZES_FOR_DOC: (documentId) => `/api/quizzes/${documentId}`, 
-        GET_QUIZ_BY_ID: (id) => `/api/quizzes/quiz/${id}`,
-        SUBMIT_QUIZ: (id) => `/api/quizzes/${id}/submit`,
-        GET_QUIZ_RESULTS: (id) => `/api/quizzes/${id}/results`,
-        DELETE_QUIZ: (id) => `/api/quizzes/${id}`,
-    },
+    GET_QUIZZES_FOR_DOC: (documentId) => `/api/quizzes/${documentId}`,
+    GET_QUIZ_BY_ID: (id) => `/api/quizzes/${id}`,
+    SUBMIT_QUIZ: (id) => `/api/quizzes/${id}/submit`,
+    GET_QUIZ_RESULTS: (id) => `/api/quizzes/${id}/results`,
+    DELETE_QUIZ: (id) => `/api/quizzes/${id}`,
+},
 
     PROGRESS: {
         GET_DASHBOARD: "/api/progress/dashboard",
