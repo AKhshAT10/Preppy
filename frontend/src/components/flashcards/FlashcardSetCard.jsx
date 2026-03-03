@@ -55,8 +55,26 @@ const FlashcardSetCard = ({flashcardSet}) => {
               </div>
 
               {/*Progress Bar*/}
-              
+              {totalCards > 0 && (
+                <div className=''>
+                    <div className=''>
+                        <span className=''>Progress</span>
+                        <span className=''>
+                            {reviewedCount}/{totalCards} reviewed
+                        </span>
+                    </div>
+                    <div className=''>
+                        <div 
+                        className='' 
+                        style={{width: `${progressPercentage}%`}}
+                        />
+                    </div>
+                </div>
+              )}
            </div>
+
+           {/*Study Button*/}
+           
         </div>
     )
 }
