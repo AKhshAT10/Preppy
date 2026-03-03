@@ -20,8 +20,13 @@ const QuizTakePage = () => {
   useEffect(()=>{
     const fetchQuiz = async () => {
       try{
-        const response = await quizService.getQuizById(quizId);
-        setQuiz(response.data);
+      const response = await quizService.getQuizById(quizId);
+if (!response?.data) {
+  toast.error('Quiz not found');
+  setLoading(false);
+  return;
+}
+setQuiz(response.data);
       }catch(error){
         toast.error('Failed to fetch quiz');
         console.error(error);
@@ -50,28 +55,27 @@ const QuizTakePage = () => {
       setCurrentQuestionIndex((prev)=>prev-1);
     }
   };
-
- const handleSubmitQuiz = async () => {
+const handleSubmitQuiz = async () => {
   setSubmitting(true);
-  try{
-    const formattedAnswers = Object.keys(selectedAnswers).map(questionId=>{
-      const questionIndex = quiz.questions.findIndex(q=>q._id === questionId);
+  try {
+    const formattedAnswers = Object.keys(selectedAnswers).map(questionId => {
+      const questionIndex = quiz.questions.findIndex(q => q._id === questionId);
       const optionIndex = selectedAnswers[questionId];
       const selectedOption = quiz.questions[questionIndex].options[optionIndex];
 
       return {
-        questionIndex: 0,
-        selectedAnswer: "A",
-        isCorrect: true // required
-      }
+        questionId,           // send the actual question ID
+        selectedAnswer: selectedOption  // send the selected option text
+      };
     });
 
     await quizService.submitQuiz(quizId, formattedAnswers);
     toast.success('Quiz submitted successfully');
     navigate(`/quizzes/${quizId}/results`);
-  }catch(error){
-    toast.error(error.message || 'failed to submit quiz');
-  }finally{
+  } catch(error) {
+    toast.error(error.message || 'Failed to submit quiz');
+    console.error(error);
+  } finally {
     setSubmitting(false);
   }
 };
@@ -84,7 +88,7 @@ const QuizTakePage = () => {
     );
   }
 
-  if(!quiz || quiz.questions.length === 0){
+   if(!quiz || !quiz.questions || quiz.questions.length === 0){
     return(
       <div className='flex items-center justify-center min-h-[60vh]'>
         <div className='text-center'>

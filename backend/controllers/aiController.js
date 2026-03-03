@@ -95,28 +95,38 @@ export const generateQuiz = async (req, res, next) => {
             });
         }
 
+        // Generate quiz using AI service
         const questions = await geminiService.generateQuiz(
             document.extractedText,
             parseInt(numQuestions)
         );
 
-        const quiz = await Quiz.create({
+        // Ensure questions is an array
+        if (!Array.isArray(questions) || questions.length === 0) {
+            return res.status(500).json({
+                success: false,
+                error: 'AI did not return any questions',
+                statusCode: 500
+            });
+        }
+
+        // Create new Quiz
+        const newQuiz = await Quiz.create({
             userId: req.user._id,
-            documentId: document._id,
-            title: title || `${document.title} - Quiz`,
-            questions,
-            totalQuestions: questions.length,
-            userAnswers: [],
-            score: 0
+            documentId,
+            title: title || `Generated Quiz - ${new Date().toLocaleDateString()}`,
+            questions,  // ✅ use `questions` instead of undefined variable
+            totalQuestions: questions.length
         });
 
-        res.status(201).json({
+        res.status(200).json({
             success: true,
-            data: quiz,
+            data: newQuiz,
             message: 'Quiz generated successfully'
         });
 
     } catch (error) {
+        console.error("Error generating quiz:", error);
         next(error);
     }
 };

@@ -14,12 +14,12 @@ const router = express.Router();
 router.use(protect);
 
 // IMPORTANT: specific routes first
-router.get('/quiz/:id', getQuizById);
+router.get('/:id', getQuizById);
 router.post('/:id/submit', submitQuiz);
 router.get('/:id/results', getQuizResults);
 router.delete('/:id', deleteQuiz);
 
 // generic route LAST
-router.get('/:documentId', getQuizzes);
+router.get('/document/:documentId', getQuizzes);
 
 export default router;

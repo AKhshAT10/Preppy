@@ -45,11 +45,12 @@ const QuizResultPage = () => {
     );
   }
 
-  const {data: {quiz,results: detailedResults}} = results;
-  const score = quiz.score;
-  const totalQuestions = detailedResults.length;
-  const correctAnswers = detailedResults.filter(r=>r.isCorrect).length;
-  const incorrectAnswers = totalQuestions - correctAnswers;
+  const {data: {quiz, results: detailedResults}} = results;
+
+const totalQuestions = detailedResults.length;
+const correctAnswers = detailedResults.filter(r => r.isCorrect).length;
+const incorrectAnswers = totalQuestions - correctAnswers;
+const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
 
   const getScoreColor = (score) => {
     if(score>=80) return 'from-emerald-500 to-teal-500';
